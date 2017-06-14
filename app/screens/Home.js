@@ -27,7 +27,6 @@ export default class App extends Component {
   }
 
   postToDb = () => {
-    console.log("test");
     axios.post("http://localhost:5000/api/request", {
       Username: Global.USERNAME,
       Posts: this.state.post

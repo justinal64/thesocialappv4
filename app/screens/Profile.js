@@ -16,13 +16,22 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userData: [],
       username: "",
       company: "",
       posts: ""
     };
   }
 
+  componentDidMount() {
+    axios.get(`http://localhost:5000/api/request`).then(res => {
+      this.setState({ userData: res.data });
+      console.log("this.state.userData = ", this.state.userData);
+    });
+  }
+
   render() {
+    if (this.state.userData === null) return null;
     const navigation = this.props.navigation;
     return (
       <View style={{ paddingVertical: 20 }}>
