@@ -19,6 +19,7 @@ export const registerUser = (user, navigation) => {
     })
     .then(function(response) {
       Global.USERNAME = user.Username;
+      Global.DBID = response.data.dbid;
       onSignIn().then(() => navigation.navigate("SignedIn"));
     })
     .catch(function(error) {
