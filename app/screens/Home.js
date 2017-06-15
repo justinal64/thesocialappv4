@@ -22,15 +22,26 @@ export default class App extends Component {
   componentDidMount() {
     axios.get(`http://localhost:5000/api/request/getall`).then(res => {
       this.setState({ userData: res.data });
-      console.log("this.state.userData = ", this.state.userData);
+      console.log(this.state.userData);
     });
   }
 
-  postToDb = () => {
+  submitToDb = () => {
     axios.post("http://localhost:5000/api/request", {
       Username: Global.USERNAME,
       Posts: this.state.post
     });
+  };
+
+  plusOne = post => {
+    post.likes++;
+    console.log(post);
+    axios.put("http://localhost:5000/api/request", post).then(
+      axios.get(`http://localhost:5000/api/request/getall`).then(res => {
+        this.setState({ userData: res.data });
+        console.log(this.state.userData);
+      })
+    );
   };
 
   render() {
@@ -50,7 +61,7 @@ export default class App extends Component {
             buttonStyle={{ backgroundColor: "red", borderRadius: 10 }}
             textStyle={{ textAlign: "center" }}
             title={`Submit`}
-            onPress={() => this.postToDb()}
+            onPress={() => this.submitToDb()}
           />
         </View>
         {this.state.userData.map((user, key) =>
@@ -58,7 +69,12 @@ export default class App extends Component {
             <Text style={{ marginBottom: 10 }}>
               {user.posts}
             </Text>
-            {/*<Badge value={3} textStyle={{ color: "orange" }} />*/}
+            <Badge
+              onPress={() => {
+                this.plusOne(user);
+              }}
+              value={user.likes}
+            />
           </Card>
         )}
       </ScrollView>

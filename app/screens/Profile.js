@@ -87,7 +87,6 @@ export default class App extends Component {
                   onPress={() => this.removeFromDb(user.dbid)}
                 />
               </Text>
-              {/*<Badge value={3} textStyle={{ color: "orange" }} />*/}
             </Card>
           )}
         </View>
