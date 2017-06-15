@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import {
   Card,
   Button,
   FormLabel,
   FormInput,
-  Text
+  Text,
+  List,
+  ListItem,
+  Icon
 } from "react-native-elements";
 import { onSignIn, auth, registerUser } from "../auth";
 import axios from "axios";
@@ -24,19 +27,20 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:5000/api/request`).then(res => {
-      this.setState({ userData: res.data });
-      console.log("this.state.userData = ", this.state.userData);
-    });
+    axios
+      .get(`http://localhost:5000/api/request/${GLOBAL.USERNAME}`)
+      .then(res => {
+        this.setState({ userData: res.data });
+        console.log("this.state.userData = ", this.state.userData);
+      });
   }
 
   render() {
     if (this.state.userData === null) return null;
     const navigation = this.props.navigation;
     return (
-      <View style={{ paddingVertical: 20 }}>
+      <ScrollView style={{ flex: 1, paddingVertical: 20 }}>
         <Card>
-          <Text h2>{GLOBAL.USERNAME}</Text>
           <View
             style={{
               backgroundColor: "#bcbec1",
@@ -49,7 +53,9 @@ export default class App extends Component {
               marginBottom: 20
             }}
           >
-            <Text style={{ color: "white", fontSize: 28 }}>JD</Text>
+            <Text style={{ color: "white", fontSize: 28 }}>
+              {GLOBAL.USERNAME}
+            </Text>
           </View>
           <Button
             backgroundColor="#03A9F4"
@@ -58,7 +64,25 @@ export default class App extends Component {
               onSignOut().then(() => navigation.navigate("SignedOut"))}
           />
         </Card>
-      </View>
+        <View>
+          <Text h4>Activity</Text>
+          {this.state.userData.map((user, key) =>
+            <Card key={user.dbid} title={user.username}>
+              <Text style={{ marginBottom: 10 }}>
+                {user.posts}
+                <Icon
+                  raised
+                  name="delete"
+                  type="material-icons"
+                  color="#f50"
+                  onPress={() => console.log("hello")}
+                />
+              </Text>
+              {/*<Badge value={3} textStyle={{ color: "orange" }} />*/}
+            </Card>
+          )}
+        </View>
+      </ScrollView>
     );
   }
 }

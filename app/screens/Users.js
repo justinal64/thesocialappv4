@@ -10,7 +10,7 @@ export default class App extends Component {
     this.state = { userData: [] };
   }
   componentDidMount() {
-    axios.get(`http://localhost:5000/api/request`).then(res => {
+    axios.get(`http://localhost:5000/api/request/getall`).then(res => {
       this.setState({ userData: res.data });
       console.log("this.state.userData = ", this.state.userData);
     });

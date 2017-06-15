@@ -22,8 +22,7 @@ export default class App extends Component {
     ) {
       var user = {
         Username: username,
-        Password: password,
-        dbid: ""
+        Password: password
       };
       registerUser(user, navigation);
     } else return false;
