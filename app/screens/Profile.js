@@ -31,9 +31,18 @@ export default class App extends Component {
       .get(`http://localhost:5000/api/request/${GLOBAL.USERNAME}`)
       .then(res => {
         this.setState({ userData: res.data });
-        console.log("this.state.userData = ", this.state.userData);
       });
   }
+
+  removeFromDb = dbid => {
+    axios.delete(`http://localhost:5000/api/request/${dbid}`).then(
+      axios
+        .get(`http://localhost:5000/api/request/${GLOBAL.USERNAME}`)
+        .then(res => {
+          this.setState({ userData: res.data });
+        })
+    );
+  };
 
   render() {
     if (this.state.userData === null) return null;
@@ -75,7 +84,7 @@ export default class App extends Component {
                   name="delete"
                   type="material-icons"
                   color="#f50"
-                  onPress={() => console.log("hello")}
+                  onPress={() => this.removeFromDb(user.dbid)}
                 />
               </Text>
               {/*<Badge value={3} textStyle={{ color: "orange" }} />*/}

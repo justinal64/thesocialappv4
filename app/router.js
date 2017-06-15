@@ -24,40 +24,45 @@ export const SignedOut = StackNavigator({
   }
 });
 
-export const SignedIn = TabNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      tabBarLabel: "Home",
-      tabBarIcon: ({ tintColor }) =>
-        <FontAwesome name="home" size={30} color={tintColor} />
+export const SignedIn = TabNavigator(
+  {
+    Home: {
+      screen: Home,
+      navigationOptions: {
+        tabBarLabel: "Home",
+        tabBarIcon: ({ tintColor }) =>
+          <FontAwesome name="home" size={30} color={tintColor} />
+      }
+    },
+    Users: {
+      screen: Users,
+      navigationOptions: {
+        tabBarLabel: "Users",
+        tabBarIcon: ({ tintColor }) =>
+          <FontAwesome name="user" size={30} color={tintColor} />
+      }
+    },
+    Notes: {
+      screen: Notes,
+      navigationOptions: {
+        tabBarLabel: "Notes",
+        tabBarIcon: ({ tintColor }) =>
+          <FontAwesome name="user" size={30} color={tintColor} />
+      }
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        tabBarLabel: "Profile",
+        tabBarIcon: ({ tintColor }) =>
+          <FontAwesome name="user" size={30} color={tintColor} />
+      }
     }
   },
-  Users: {
-    screen: Users,
-    navigationOptions: {
-      tabBarLabel: "Users",
-      tabBarIcon: ({ tintColor }) =>
-        <FontAwesome name="user" size={30} color={tintColor} />
-    }
-  },
-  Notes: {
-    screen: Notes,
-    navigationOptions: {
-      tabBarLabel: "Notes",
-      tabBarIcon: ({ tintColor }) =>
-        <FontAwesome name="user" size={30} color={tintColor} />
-    }
-  },
-  Profile: {
-    screen: Profile,
-    navigationOptions: {
-      tabBarLabel: "Profile",
-      tabBarIcon: ({ tintColor }) =>
-        <FontAwesome name="user" size={30} color={tintColor} />
-    }
+  {
+    lazy: true
   }
-});
+);
 
 export const createRootNavigator = (signedIn = false) => {
   return StackNavigator(
