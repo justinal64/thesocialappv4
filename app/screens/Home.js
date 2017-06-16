@@ -35,7 +35,6 @@ export default class App extends Component {
 
   plusOne = post => {
     post.likes++;
-    console.log(post);
     axios.put("http://localhost:5000/api/request", post).then(
       axios.get(`http://localhost:5000/api/request/getall`).then(res => {
         this.setState({ userData: res.data });
